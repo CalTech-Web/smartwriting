@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { FaInstagram, FaFacebookF, FaLinkedinIn } from "react-icons/fa";
+import AnimateOnScroll from "@/components/AnimateOnScroll";
 
 export default function Footer() {
   return (
     <footer className="bg-primary text-white py-12">
-      <div className="max-w-6xl mx-auto px-4">
+      <AnimateOnScroll className="max-w-6xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div>
@@ -58,7 +59,7 @@ export default function Footer() {
         <div className="border-t border-gray-600 mt-8 pt-8 text-center text-gray-400 text-sm">
           &copy; {new Date().getFullYear()} SmartWriting | All Rights Reserved
         </div>
-      </div>
+      </AnimateOnScroll>
     </footer>
   );
 }

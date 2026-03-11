@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FaQuoteLeft } from "react-icons/fa";
+import AnimateOnScroll from "@/components/AnimateOnScroll";
 
 export const metadata: Metadata = {
   title: "Testimonials | SmartWriting",
@@ -54,10 +55,10 @@ export default function TestimonialsPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-primary-light text-white py-20">
+      <section className="bg-gradient-to-br from-primary to-primary-light hero-gradient-animated text-white py-20">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Testimonials</h1>
-          <p className="text-gray-200 text-lg">What clients are saying about Hallie Gay</p>
+          <h1 className="hero-text-reveal text-4xl md:text-5xl font-bold mb-4">Testimonials</h1>
+          <p className="hero-text-reveal-delay-1 text-gray-200 text-lg">What clients are saying about Hallie Gay</p>
         </div>
       </section>
 
@@ -65,28 +66,27 @@ export default function TestimonialsPage() {
       <section className="py-20">
         <div className="max-w-4xl mx-auto px-4 space-y-10">
           {testimonials.map((t, i) => (
-            <div
-              key={i}
-              className="bg-white border border-gray-100 rounded-2xl p-8 md:p-10 shadow-sm hover:shadow-md transition-shadow"
-            >
-              <div className="flex items-start gap-4 mb-6">
-                <FaQuoteLeft className="text-accent text-2xl flex-shrink-0 mt-1" />
-                <span className="inline-block bg-accent/10 text-accent text-sm font-semibold px-3 py-1 rounded-full">
-                  {t.highlight}
-                </span>
+            <AnimateOnScroll key={i}>
+              <div className="bg-white border border-gray-100 rounded-2xl p-8 md:p-10 shadow-sm card-hover">
+                <div className="flex items-start gap-4 mb-6">
+                  <FaQuoteLeft className="text-accent text-2xl flex-shrink-0 mt-1" />
+                  <span className="inline-block bg-accent/10 text-accent text-sm font-semibold px-3 py-1 rounded-full">
+                    {t.highlight}
+                  </span>
+                </div>
+                <p className="text-text-light leading-relaxed mb-6 text-lg italic">
+                  &ldquo;{t.text}&rdquo;
+                </p>
+                <p className="text-primary font-bold text-lg">&mdash; {t.author}</p>
               </div>
-              <p className="text-text-light leading-relaxed mb-6 text-lg italic">
-                &ldquo;{t.text}&rdquo;
-              </p>
-              <p className="text-primary font-bold text-lg">&mdash; {t.author}</p>
-            </div>
+            </AnimateOnScroll>
           ))}
         </div>
       </section>
 
       {/* CTA */}
       <section className="py-16 bg-bg-warm text-center">
-        <div className="max-w-3xl mx-auto px-4">
+        <AnimateOnScroll className="max-w-3xl mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-primary mb-4">
             Join our successful students
           </h2>
@@ -95,11 +95,11 @@ export default function TestimonialsPage() {
           </p>
           <Link
             href="/lets-talk"
-            className="inline-block bg-accent text-white px-10 py-4 rounded-full text-lg font-semibold hover:bg-accent-hover transition-colors shadow-lg"
+            className="inline-block bg-accent text-white px-10 py-4 rounded-full text-lg font-semibold hover:bg-accent-hover transition-colors shadow-lg btn-glow"
           >
             Let&apos;s Talk!
           </Link>
-        </div>
+        </AnimateOnScroll>
       </section>
     </>
   );

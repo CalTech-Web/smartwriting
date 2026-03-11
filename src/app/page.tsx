@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { FaGraduationCap, FaPen, FaUsers, FaMicrophoneAlt, FaCalendarAlt, FaMoneyBillWave, FaListOl, FaFlask, FaAward } from "react-icons/fa";
+import AnimateOnScroll from "@/components/AnimateOnScroll";
+import StaggerChildren from "@/components/StaggerChildren";
 
 const universities = [
   "Carleton", "Carnegie Mellon", "Yale", "Centre College", "Dartmouth",
@@ -24,13 +26,13 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary to-primary-light text-white py-24 md:py-32">
+      <section className="relative bg-gradient-to-br from-primary to-primary-light hero-gradient-animated text-white py-24 md:py-32">
         <div className="absolute inset-0 bg-black/20" />
         <div className="relative max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+          <h1 className="hero-text-reveal text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
             College Admissions Essay<br />Coaching and Planning
           </h1>
-          <p className="text-lg md:text-xl max-w-3xl mx-auto mb-8 text-gray-200 leading-relaxed">
+          <p className="hero-text-reveal-delay-1 text-lg md:text-xl max-w-3xl mx-auto mb-8 text-gray-200 leading-relaxed">
             Words matter. They just do. College admissions is highly competitive.
             You&apos;ve got grades, test scores &amp; extracurriculars. What remains now
             are your essays, and packaging it all up in the best way possible.
@@ -38,7 +40,7 @@ export default function Home() {
           </p>
           <Link
             href="/lets-talk"
-            className="inline-block bg-accent text-white px-10 py-4 rounded-full text-lg font-semibold hover:bg-accent-hover transition-colors shadow-lg"
+            className="hero-text-reveal-delay-2 inline-block bg-accent text-white px-10 py-4 rounded-full text-lg font-semibold hover:bg-accent-hover transition-colors shadow-lg btn-glow"
           >
             Let&apos;s Talk!
           </Link>
@@ -48,97 +50,107 @@ export default function Home() {
       {/* University Logos / Admits */}
       <section className="py-16 bg-bg-light">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-primary mb-3">
-            Recent Client Admits
-          </h2>
-          <p className="text-text-light mb-10">
-            Our students have been admitted to these prestigious institutions
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
+          <AnimateOnScroll>
+            <h2 className="text-2xl md:text-3xl font-bold text-primary mb-3">
+              Recent Client Admits
+            </h2>
+            <p className="text-text-light mb-10">
+              Our students have been admitted to these prestigious institutions
+            </p>
+          </AnimateOnScroll>
+          <StaggerChildren staggerDelay={40} className="flex flex-wrap justify-center gap-4">
             {universities.map((uni) => (
               <span
                 key={uni}
-                className="bg-white px-5 py-3 rounded-lg shadow-sm text-sm font-semibold text-primary border border-gray-100 hover:shadow-md transition-shadow"
+                className="bg-white px-5 py-3 rounded-lg shadow-sm text-sm font-semibold text-primary border border-gray-100 badge-hover"
               >
                 {uni}
               </span>
             ))}
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
       {/* About Preview */}
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-          <div className="bg-gradient-to-br from-accent/10 to-primary/10 rounded-2xl p-12 flex items-center justify-center">
-            <div className="text-center">
-              <div className="w-40 h-40 bg-gradient-to-br from-accent to-primary rounded-full mx-auto mb-4 flex items-center justify-center">
-                <span className="text-white text-5xl font-bold">HG</span>
+          <AnimateOnScroll animation="fade-right">
+            <div className="bg-gradient-to-br from-accent/10 to-primary/10 rounded-2xl p-12 flex items-center justify-center">
+              <div className="text-center">
+                <div className="w-40 h-40 bg-gradient-to-br from-accent to-primary rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <span className="text-white text-5xl font-bold">HG</span>
+                </div>
+                <p className="text-primary font-semibold text-lg">Hallie Gay W. Bagley</p>
+                <p className="text-text-light text-sm">Former Managing Editor</p>
+                <p className="text-text-light text-sm italic">The Paris Review</p>
               </div>
-              <p className="text-primary font-semibold text-lg">Hallie Gay W. Bagley</p>
-              <p className="text-text-light text-sm">Former Managing Editor</p>
-              <p className="text-text-light text-sm italic">The Paris Review</p>
             </div>
-          </div>
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">
-              About Hallie Gay
-            </h2>
-            <p className="text-text-light leading-relaxed mb-4">
-              As former Managing Editor of <em>The Paris Review</em>, the renowned
-              literary magazine featuring original writing and in-depth interviews
-              with acclaimed writers, I&apos;ve worked with some of the best wordsmiths
-              in the world.
-            </p>
-            <p className="text-text-light leading-relaxed mb-6">
-              <em>The Paris Review</em> is where I began to develop the craft
-              necessary to polish a writer&apos;s &ldquo;voice.&rdquo; It&apos;s also what helps me
-              with out-of-the-box creativity and ideas for the written word.
-            </p>
-            <Link
-              href="/about"
-              className="text-accent font-semibold hover:text-accent-hover transition-colors"
-            >
-              Read More &rarr;
-            </Link>
-          </div>
+          </AnimateOnScroll>
+          <AnimateOnScroll animation="fade-left" delay={200}>
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">
+                About Hallie Gay
+              </h2>
+              <p className="text-text-light leading-relaxed mb-4">
+                As former Managing Editor of <em>The Paris Review</em>, the renowned
+                literary magazine featuring original writing and in-depth interviews
+                with acclaimed writers, I&apos;ve worked with some of the best wordsmiths
+                in the world.
+              </p>
+              <p className="text-text-light leading-relaxed mb-6">
+                <em>The Paris Review</em> is where I began to develop the craft
+                necessary to polish a writer&apos;s &ldquo;voice.&rdquo; It&apos;s also what helps me
+                with out-of-the-box creativity and ideas for the written word.
+              </p>
+              <Link
+                href="/about"
+                className="text-accent font-semibold hover:text-accent-hover transition-colors"
+              >
+                Read More &rarr;
+              </Link>
+            </div>
+          </AnimateOnScroll>
         </div>
       </section>
 
       {/* Services */}
       <section className="py-20 bg-bg-warm">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary text-center mb-4">
-            Full-Service Coaching
-          </h2>
-          <p className="text-text-light text-center mb-12 max-w-2xl mx-auto">
-            Comprehensive support through every step of the college application process
-          </p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <AnimateOnScroll>
+            <h2 className="text-3xl md:text-4xl font-bold text-primary text-center mb-4">
+              Full-Service Coaching
+            </h2>
+            <p className="text-text-light text-center mb-12 max-w-2xl mx-auto">
+              Comprehensive support through every step of the college application process
+            </p>
+          </AnimateOnScroll>
+          <StaggerChildren staggerDelay={80} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, i) => (
               <div
                 key={i}
-                className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow flex items-start gap-4"
+                className="bg-white p-6 rounded-xl shadow-sm flex items-start gap-4 card-hover"
               >
                 <service.icon className="text-accent text-xl mt-1 flex-shrink-0" />
                 <span className="text-text font-medium">{service.text}</span>
               </div>
             ))}
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
       {/* The Process */}
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary text-center mb-4">
-            The Process
-          </h2>
-          <p className="text-text-light text-center mb-16 max-w-2xl mx-auto">
-            A simple, proven approach to transform your college applications
-          </p>
+          <AnimateOnScroll>
+            <h2 className="text-3xl md:text-4xl font-bold text-primary text-center mb-4">
+              The Process
+            </h2>
+            <p className="text-text-light text-center mb-16 max-w-2xl mx-auto">
+              A simple, proven approach to transform your college applications
+            </p>
+          </AnimateOnScroll>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <StaggerChildren staggerDelay={150} className="grid md:grid-cols-3 gap-8">
             {/* Step 1 */}
             <div className="text-center">
               <div className="w-16 h-16 bg-accent text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">
@@ -188,22 +200,24 @@ export default function Home() {
                 I am only able to take a limited number of clients.
               </p>
             </div>
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
       {/* Testimonials Preview */}
       <section className="py-20 bg-bg-light">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-            What Clients Are Saying
-          </h2>
-          <p className="text-text-light mb-12 max-w-2xl mx-auto">
-            Hear from parents and students about their SmartWriting experience
-          </p>
+          <AnimateOnScroll>
+            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+              What Clients Are Saying
+            </h2>
+            <p className="text-text-light mb-12 max-w-2xl mx-auto">
+              Hear from parents and students about their SmartWriting experience
+            </p>
+          </AnimateOnScroll>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div className="bg-white p-8 rounded-xl shadow-sm text-left">
+          <StaggerChildren staggerDelay={150} className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="bg-white p-8 rounded-xl shadow-sm text-left card-hover">
               <p className="text-text-light leading-relaxed italic mb-4">
                 &ldquo;Simply put, Hallie Gay is a sherpa. Instead of leading your child
                 up a mountain, she uses her vast experience to guide them through
@@ -211,7 +225,7 @@ export default function Home() {
               </p>
               <p className="text-primary font-semibold">&mdash; A Parent</p>
             </div>
-            <div className="bg-white p-8 rounded-xl shadow-sm text-left">
+            <div className="bg-white p-8 rounded-xl shadow-sm text-left card-hover">
               <p className="text-text-light leading-relaxed italic mb-4">
                 &ldquo;I was admitted to my first choice school &mdash; The University of
                 Chicago &mdash; in addition to nine others, including Ivy Leagues, and
@@ -219,20 +233,22 @@ export default function Home() {
               </p>
               <p className="text-primary font-semibold">&mdash; A Student</p>
             </div>
-          </div>
+          </StaggerChildren>
 
-          <Link
-            href="/testimonials"
-            className="inline-block mt-10 text-accent font-semibold hover:text-accent-hover transition-colors text-lg"
-          >
-            Read All Testimonials &rarr;
-          </Link>
+          <AnimateOnScroll>
+            <Link
+              href="/testimonials"
+              className="inline-block mt-10 text-accent font-semibold hover:text-accent-hover transition-colors text-lg"
+            >
+              Read All Testimonials &rarr;
+            </Link>
+          </AnimateOnScroll>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-primary to-primary-light text-white text-center">
-        <div className="max-w-3xl mx-auto px-4">
+      <section className="py-20 bg-gradient-to-br from-primary to-primary-light hero-gradient-animated text-white text-center">
+        <AnimateOnScroll className="max-w-3xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Ready to Get Started?
           </h2>
@@ -243,11 +259,11 @@ export default function Home() {
           </p>
           <Link
             href="/lets-talk"
-            className="inline-block bg-accent text-white px-10 py-4 rounded-full text-lg font-semibold hover:bg-accent-hover transition-colors shadow-lg"
+            className="inline-block bg-accent text-white px-10 py-4 rounded-full text-lg font-semibold hover:bg-accent-hover transition-colors shadow-lg btn-glow"
           >
             Let&apos;s Talk!
           </Link>
-        </div>
+        </AnimateOnScroll>
       </section>
     </>
   );
