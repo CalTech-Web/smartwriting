@@ -48,13 +48,18 @@ export default function AnimatedCounter({
   }, [isInView, end, duration]);
 
   return (
-    <div ref={ref} className="text-center">
-      <div className="text-4xl md:text-5xl font-bold text-accent mb-2">
-        {prefix}
-        {count.toLocaleString()}
-        {suffix}
+    <div ref={ref} className="text-center relative">
+      <div className="absolute inset-0 flex items-center justify-center opacity-10">
+        <div className="w-28 h-28 md:w-32 md:h-32 rounded-full border-2 border-white" />
       </div>
-      <div className="text-text-light font-medium">{label}</div>
+      <div className="relative">
+        <div className="text-5xl md:text-7xl font-black gradient-text mb-2" style={{ fontFamily: "var(--font-display)" }}>
+          {prefix}
+          {count.toLocaleString()}
+          {suffix}
+        </div>
+        <div className="text-white/60 text-sm font-semibold tracking-widest uppercase">{label}</div>
+      </div>
     </div>
   );
 }

@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FaQuoteLeft } from "react-icons/fa";
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 
 export const metadata: Metadata = {
   title: "Testimonials | SmartWriting",
-  description: "Read what parents and students say about their SmartWriting college admissions essay coaching experience.",
+  description:
+    "Read what parents and students say about their SmartWriting college admissions essay coaching experience.",
 };
 
 const testimonials = [
@@ -55,29 +55,74 @@ export default function TestimonialsPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-primary-light hero-gradient-animated text-white py-20">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <h1 className="hero-text-reveal text-4xl md:text-5xl font-bold mb-4">Testimonials</h1>
-          <p className="hero-text-reveal-delay-1 text-gray-200 text-lg">What clients are saying about Hallie Gay</p>
+      <section className="relative py-32 md:py-40 mesh-gradient-animated text-white overflow-hidden">
+        <div className="hidden lg:block absolute bottom-20 right-20 w-28 h-28 border-2 border-white/10 rounded-full float-slow" />
+        <div className="absolute top-10 left-10 text-[12rem] font-black text-white/[0.03] leading-none select-none" style={{ fontFamily: "var(--font-display)" }}>
+          &ldquo;
+        </div>
+        <div className="max-w-7xl mx-auto px-6 relative">
+          <p className="hero-text-reveal text-sm font-semibold tracking-[0.3em] uppercase text-secondary mb-4">
+            Success Stories
+          </p>
+          <h1 className="hero-text-reveal text-5xl md:text-7xl font-black mb-6">Testimonials</h1>
+          <p className="hero-text-reveal-delay-1 text-white/70 text-xl max-w-2xl">
+            What clients are saying about Hallie Gay
+          </p>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20">
-        <div className="max-w-4xl mx-auto px-4 space-y-10">
+      {/* Testimonials - Masonry-like */}
+      <section className="py-24 bg-bg-light">
+        <div className="max-w-5xl mx-auto px-6 space-y-8">
           {testimonials.map((t, i) => (
-            <AnimateOnScroll key={i}>
-              <div className="bg-white border border-gray-100 rounded-2xl p-8 md:p-10 shadow-sm card-hover">
-                <div className="flex items-start gap-4 mb-6">
-                  <FaQuoteLeft className="text-accent text-2xl flex-shrink-0 mt-1" />
-                  <span className="inline-block bg-accent/10 text-accent text-sm font-semibold px-3 py-1 rounded-full">
+            <AnimateOnScroll
+              key={i}
+              animation={i % 3 === 0 ? "slide-rotate" : i % 3 === 1 ? "blur-in" : "fade-up"}
+            >
+              <div
+                className={`
+                  relative p-10 md:p-12 rounded-3xl card-hover-tilt
+                  ${i === 0
+                    ? "bg-gradient-to-br from-primary to-primary-light text-white border border-white/10"
+                    : "bg-white border border-gray-100"
+                  }
+                  ${i % 3 === 1 ? "md:-rotate-1" : i % 3 === 2 ? "md:rotate-1" : ""}
+                `}
+              >
+                {/* Decorative quote */}
+                <div
+                  className={`absolute top-4 right-6 text-6xl font-black leading-none select-none ${
+                    i === 0 ? "text-white/5" : "text-accent/5"
+                  }`}
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
+                  &ldquo;
+                </div>
+
+                <div className="flex items-center gap-3 mb-6">
+                  <span
+                    className={`inline-block px-4 py-1.5 rounded-full text-sm font-bold ${
+                      i === 0 ? "bg-accent text-white" : "bg-accent/10 text-accent"
+                    }`}
+                  >
                     {t.highlight}
                   </span>
                 </div>
-                <p className="text-text-light leading-relaxed mb-6 text-lg italic">
+                <p
+                  className={`text-lg leading-relaxed italic mb-6 ${
+                    i === 0 ? "text-white/80" : "text-text-light"
+                  }`}
+                >
                   &ldquo;{t.text}&rdquo;
                 </p>
-                <p className="text-primary font-bold text-lg">&mdash; {t.author}</p>
+                <p
+                  className={`text-lg font-bold ${
+                    i === 0 ? "text-secondary" : "text-primary"
+                  }`}
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
+                  &mdash; {t.author}
+                </p>
               </div>
             </AnimateOnScroll>
           ))}
@@ -85,17 +130,17 @@ export default function TestimonialsPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-bg-warm text-center">
-        <AnimateOnScroll className="max-w-3xl mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-primary mb-4">
-            Join our successful students
+      <section className="relative py-24 mesh-gradient-animated text-center overflow-hidden">
+        <AnimateOnScroll className="relative max-w-3xl mx-auto px-6">
+          <h2 className="text-4xl md:text-6xl font-black text-white mb-6">
+            Join our <span className="gradient-text">successful</span> students
           </h2>
-          <p className="text-text-light mb-8">
+          <p className="text-white/70 text-lg mb-10">
             Schedule a consultation to learn how SmartWriting can help your student.
           </p>
           <Link
             href="/lets-talk"
-            className="inline-block bg-accent text-white px-10 py-4 rounded-full text-lg font-semibold hover:bg-accent-hover transition-colors shadow-lg btn-glow"
+            className="inline-block bg-gradient-to-r from-accent to-accent-deep text-white px-14 py-5 rounded-full text-xl font-bold shadow-2xl shadow-accent/30 hover:shadow-accent/50 hover:scale-105 transition-all duration-300"
           >
             Let&apos;s Talk!
           </Link>

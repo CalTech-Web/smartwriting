@@ -1,23 +1,46 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-primary: #2c3e50;
-  --color-primary-light: #34495e;
-  --color-accent: #c0a062;
-  --color-accent-hover: #d4b876;
-  --color-text: #333333;
-  --color-text-light: #666666;
-  --color-bg: #ffffff;
-  --color-bg-light: #f8f8f8;
-  --color-bg-warm: #faf8f5;
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Primary: Deep Indigo-Violet */
+  --color-primary: #1a0b3e;
+  --color-primary-light: #2d1b69;
+  --color-primary-mid: #4a2c8a;
+
+  /* Accent: Electric Coral-Orange */
+  --color-accent: #ff6b4a;
+  --color-accent-hover: #ff8566;
+  --color-accent-deep: #e5553a;
+
+  /* Secondary: Luminous Teal */
+  --color-secondary: #00d4aa;
+  --color-secondary-light: #33e0be;
+
+  /* Neutrals */
+  --color-text: #1a1a2e;
+  --color-text-light: #5a5a7a;
+  --color-bg: #fefcfa;
+  --color-bg-light: #f5f0eb;
+  --color-bg-warm: #ede5db;
+  --color-bg-dark: #0f0628;
+
+  /* Gradient colors */
+  --color-gradient-1: #ff6b4a;
+  --color-gradient-2: #a855f7;
+  --color-gradient-3: #00d4aa;
+  --color-gradient-4: #fbbf24;
+
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-body);
 }
 
 body {
   background: var(--color-bg);
   color: var(--color-text);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display), Georgia, serif;
 }
 
 html {
@@ -30,7 +53,7 @@ html {
 
 .animate-on-scroll {
   opacity: 0;
-  transition-property: opacity, transform;
+  transition-property: opacity, transform, filter, clip-path;
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   transition-duration: 700ms;
   will-change: opacity, transform;
@@ -56,9 +79,25 @@ html {
   transform: scale(0.95);
 }
 
+.animate-on-scroll.slide-rotate {
+  transform: translateY(60px) rotate(2deg);
+}
+
+.animate-on-scroll.blur-in {
+  transform: scale(0.9);
+  filter: blur(8px);
+}
+
+.animate-on-scroll.clip-reveal {
+  clip-path: inset(0 100% 0 0);
+  opacity: 1;
+}
+
 .animate-on-scroll.is-visible {
   opacity: 1;
-  transform: translateY(0) translateX(0) scale(1);
+  transform: translateY(0) translateX(0) scale(1) rotate(0deg);
+  filter: blur(0);
+  clip-path: inset(0 0 0 0);
   will-change: auto;
 }
 
@@ -104,6 +143,91 @@ html {
 }
 
 /* ============================================
+   MESH GRADIENT BACKGROUND
+   ============================================ */
+
+@keyframes mesh-drift {
+  0%   { background-position: 0% 0%, 100% 100%, 50% 50%; }
+  25%  { background-position: 100% 0%, 0% 100%, 25% 75%; }
+  50%  { background-position: 100% 100%, 0% 0%, 75% 25%; }
+  75%  { background-position: 0% 100%, 100% 0%, 50% 50%; }
+  100% { background-position: 0% 0%, 100% 100%, 50% 50%; }
+}
+
+.mesh-gradient-animated {
+  background:
+    radial-gradient(ellipse at 20% 50%, var(--color-gradient-1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, var(--color-gradient-2) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, var(--color-gradient-3) 0%, transparent 50%),
+    var(--color-primary);
+  background-size: 200% 200%, 200% 200%, 200% 200%;
+  animation: mesh-drift 15s ease-in-out infinite;
+}
+
+/* ============================================
+   FLOATING & MORPHING DECORATIVE ELEMENTS
+   ============================================ */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-15px) rotate(2deg); }
+  66% { transform: translateY(8px) rotate(-1deg); }
+}
+
+.float-slow { animation: float 8s ease-in-out infinite; }
+.float-medium { animation: float 6s ease-in-out infinite 1s; }
+.float-fast { animation: float 4s ease-in-out infinite 0.5s; }
+
+@keyframes morph {
+  0%   { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  25%  { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  50%  { border-radius: 50% 50% 40% 60% / 40% 50% 60% 50%; }
+  75%  { border-radius: 40% 60% 60% 40% / 60% 40% 40% 60%; }
+  100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+}
+
+.morph-blob {
+  animation: morph 12s ease-in-out infinite;
+}
+
+/* ============================================
+   GRADIENT TEXT
+   ============================================ */
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-accent), var(--color-gradient-2), var(--color-secondary));
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 4s ease-in-out infinite;
+}
+
+/* ============================================
+   MARQUEE AUTO-SCROLL
+   ============================================ */
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-container {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ============================================
    MICRO-INTERACTIONS
    ============================================ */
 
@@ -117,9 +241,21 @@ html {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
+.card-hover-tilt {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s ease;
+}
+
+.card-hover-tilt:hover {
+  transform: translateY(-8px) rotate(-1deg);
+  box-shadow: 0 20px 60px rgba(26, 11, 62, 0.15), 0 8px 20px rgba(255, 107, 74, 0.1);
+  border-color: var(--color-accent);
+}
+
 @keyframes button-glow {
-  0%, 100% { box-shadow: 0 4px 15px rgba(192, 160, 98, 0.3); }
-  50% { box-shadow: 0 4px 25px rgba(192, 160, 98, 0.5); }
+  0%, 100% { box-shadow: 0 4px 15px rgba(255, 107, 74, 0.3); }
+  50% { box-shadow: 0 4px 25px rgba(255, 107, 74, 0.5); }
 }
 
 .btn-glow {
@@ -129,7 +265,7 @@ html {
 .btn-glow:hover {
   animation: none;
   transform: translateY(-2px);
-  box-shadow: 0 6px 30px rgba(192, 160, 98, 0.4);
+  box-shadow: 0 6px 30px rgba(255, 107, 74, 0.4);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -140,7 +276,31 @@ html {
 .badge-hover:hover {
   transform: translateY(-2px) scale(1.02);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-  border-color: rgba(192, 160, 98, 0.3);
+  border-color: rgba(255, 107, 74, 0.3);
+}
+
+/* ============================================
+   NAV LINK ANIMATED UNDERLINE
+   ============================================ */
+
+.nav-link {
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-gradient-2));
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link:hover::after {
+  width: 100%;
 }
 
 /* ============================================
@@ -148,9 +308,35 @@ html {
    ============================================ */
 
 .header-scrolled {
-  backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.95) !important;
-  box-shadow: 0 1px 20px rgba(0, 0, 0, 0.06) !important;
+  backdrop-filter: blur(16px);
+  background: rgba(26, 11, 62, 0.92) !important;
+  box-shadow: 0 4px 30px rgba(26, 11, 62, 0.3) !important;
+}
+
+.header-scrolled .nav-link,
+.header-scrolled .header-logo,
+.header-scrolled .header-social {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.header-scrolled .nav-link:hover {
+  color: var(--color-accent) !important;
+}
+
+/* ============================================
+   DIAGONAL SECTION DIVIDERS
+   ============================================ */
+
+.diagonal-top {
+  clip-path: polygon(0 6%, 100% 0, 100% 100%, 0 100%);
+}
+
+.diagonal-bottom {
+  clip-path: polygon(0 0, 100% 0, 100% 94%, 0 100%);
+}
+
+.diagonal-both {
+  clip-path: polygon(0 6%, 100% 0, 100% 94%, 0 100%);
 }
 
 /* ============================================
@@ -162,9 +348,18 @@ html {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+    filter: none !important;
+    clip-path: none !important;
   }
 
-  .hero-gradient-animated {
+  .hero-gradient-animated,
+  .mesh-gradient-animated,
+  .morph-blob,
+  .float-slow,
+  .float-medium,
+  .float-fast,
+  .marquee-track,
+  .gradient-text {
     animation: none !important;
   }
 
@@ -181,7 +376,8 @@ html {
     animation: none !important;
   }
 
-  .card-hover:hover {
+  .card-hover:hover,
+  .card-hover-tilt:hover {
     transform: none !important;
   }
 

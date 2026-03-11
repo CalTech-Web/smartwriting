@@ -7,7 +7,10 @@ type AnimationType =
   | "fade-in"
   | "fade-left"
   | "fade-right"
-  | "scale-in";
+  | "scale-in"
+  | "slide-rotate"
+  | "blur-in"
+  | "clip-reveal";
 
 interface AnimateOnScrollProps {
   children: React.ReactNode;

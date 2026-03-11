@@ -7,7 +7,8 @@ import AnimatedCounter from "@/components/AnimatedCounter";
 
 export const metadata: Metadata = {
   title: "Results | SmartWriting",
-  description: "See the impressive results of SmartWriting clients — scholarships, merit awards, and university admissions.",
+  description:
+    "See the impressive results of SmartWriting clients — scholarships, merit awards, and university admissions.",
 };
 
 const scholarships = [
@@ -35,16 +36,22 @@ export default function ResultsPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-primary-light hero-gradient-animated text-white py-20">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <h1 className="hero-text-reveal text-4xl md:text-5xl font-bold mb-4">Results</h1>
-          <p className="hero-text-reveal-delay-1 text-gray-200 text-lg">Proven track record of student success</p>
+      <section className="relative py-32 md:py-40 mesh-gradient-animated text-white overflow-hidden">
+        <div className="hidden lg:block absolute top-20 right-16 w-20 h-20 border border-white/10 rotate-45 float-fast" />
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="hero-text-reveal text-sm font-semibold tracking-[0.3em] uppercase text-secondary mb-4">
+            Proven Track Record
+          </p>
+          <h1 className="hero-text-reveal text-5xl md:text-7xl font-black mb-6">Results</h1>
+          <p className="hero-text-reveal-delay-1 text-white/70 text-xl max-w-2xl">
+            Our students consistently earn admission to top universities and prestigious scholarships
+          </p>
         </div>
       </section>
 
-      {/* Stats Row */}
-      <section className="py-16 bg-bg-light">
-        <div className="max-w-4xl mx-auto px-4 grid grid-cols-3 gap-8">
+      {/* Stats Row - Dark with Bold Counters */}
+      <section className="py-20 bg-bg-dark">
+        <div className="max-w-5xl mx-auto px-6 grid grid-cols-3 gap-8">
           <AnimatedCounter end={11} suffix="+" label="Scholarships & Awards" />
           <AnimatedCounter end={21} suffix="+" label="University Admits" />
           <AnimatedCounter end={1} prefix="$" suffix="M+" label="In Scholarships" />
@@ -52,21 +59,25 @@ export default function ResultsPage() {
       </section>
 
       {/* Scholarships */}
-      <section className="py-20">
-        <div className="max-w-4xl mx-auto px-4">
-          <AnimateOnScroll>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary text-center mb-3">
-              Scholarships &amp; Merit Awards
+      <section className="py-24">
+        <div className="max-w-5xl mx-auto px-6">
+          <AnimateOnScroll animation="slide-rotate">
+            <p className="text-sm font-semibold tracking-[0.25em] uppercase text-accent mb-3">
+              Achievements
+            </p>
+            <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4">
+              Scholarships &amp; <span className="gradient-text">Merit Awards</span>
             </h2>
-            <p className="text-text-light text-center mb-12">
+            <p className="text-text-light mb-12 text-lg">
               Recent SmartWriting client scholarships and merit awards include:
             </p>
           </AnimateOnScroll>
+
           <StaggerChildren staggerDelay={80} className="space-y-4">
             {scholarships.map((s, i) => (
               <div
                 key={i}
-                className="flex items-start gap-4 bg-white border border-gray-100 rounded-xl p-5 shadow-sm card-hover"
+                className="flex items-start gap-4 bg-bg-light border-l-4 border-accent rounded-xl p-6 card-hover-tilt"
               >
                 <FaTrophy className="text-accent text-lg mt-1 flex-shrink-0" />
                 <span className="text-text leading-relaxed">{s}</span>
@@ -76,45 +87,51 @@ export default function ResultsPage() {
         </div>
       </section>
 
-      {/* University Admits */}
-      <section className="py-20 bg-bg-light">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <AnimateOnScroll>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-3">
-              University Admits
+      {/* University Admits - Marquee */}
+      <section className="relative py-20 bg-bg-dark diagonal-top overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 mb-12 pt-8">
+          <AnimateOnScroll animation="slide-rotate">
+            <p className="text-sm font-semibold tracking-[0.25em] uppercase text-secondary mb-3">
+              Client Admissions
+            </p>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-2">
+              University <span className="gradient-text">Admits</span>
             </h2>
-            <p className="text-text-light mb-4">
+            <p className="text-white/50 mb-4">
               Recent SmartWriting client admits include:
             </p>
-            <p className="text-sm text-text-light italic mb-10">
+            <p className="text-sm text-white/30 italic">
               (And many more Public, Private and Liberal Arts Colleges Nationwide)
             </p>
           </AnimateOnScroll>
-          <StaggerChildren staggerDelay={50} className="flex flex-wrap justify-center gap-4">
-            {universities.map((uni) => (
+        </div>
+
+        <div className="marquee-container">
+          <div className="marquee-track">
+            {[...universities, ...universities].map((uni, i) => (
               <span
-                key={uni}
-                className="bg-white px-6 py-3 rounded-lg shadow-sm text-sm font-semibold text-primary border border-gray-100 badge-hover"
+                key={i}
+                className="inline-block mx-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-semibold text-sm backdrop-blur-sm hover:bg-accent/20 hover:border-accent/40 transition-colors whitespace-nowrap"
               >
                 {uni}
               </span>
             ))}
-          </StaggerChildren>
+          </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-bg-warm text-center">
-        <AnimateOnScroll className="max-w-3xl mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-primary mb-4">
-            Your student could be next
+      <section className="relative py-24 mesh-gradient-animated text-center overflow-hidden">
+        <AnimateOnScroll className="relative max-w-3xl mx-auto px-6">
+          <h2 className="text-4xl md:text-6xl font-black text-white mb-6">
+            Your student could be <span className="gradient-text">next</span>
           </h2>
-          <p className="text-text-light mb-8">
+          <p className="text-white/70 text-lg mb-10">
             Schedule a consultation to discuss how SmartWriting can help achieve these results.
           </p>
           <Link
             href="/lets-talk"
-            className="inline-block bg-accent text-white px-10 py-4 rounded-full text-lg font-semibold hover:bg-accent-hover transition-colors shadow-lg btn-glow"
+            className="inline-block bg-gradient-to-r from-accent to-accent-deep text-white px-14 py-5 rounded-full text-xl font-bold shadow-2xl shadow-accent/30 hover:shadow-accent/50 hover:scale-105 transition-all duration-300"
           >
             Let&apos;s Talk!
           </Link>
